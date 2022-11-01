@@ -40,7 +40,6 @@ public class OrderController {
 	public List<Order> all() {
 		return orderService.all();
 	}
-	
 
 	// the global filter overrides the ETag value we set here. We can still
 	@Operation(summary = "Find order by id")
@@ -63,12 +62,9 @@ public class OrderController {
 		orderService.delete(id);
 	}
 
-	/**
-	 * Lesson 2
-	 * 
-	 * @Operation(summary = "Delete an order by id with a reason")
-	 * @DeleteMapping(value = "/orders/{id}", params = "version=2") public void
-	 *                      delete(@PathVariable Long id, @PathVariable String
-	 *                      reason) { orderService.delete(id); }
-	 **/
+	@Operation(summary = "Delete an order by id with a reason")
+	@DeleteMapping(value = "/orders/{id}", params = "version=2")
+	public void delete(@PathVariable Long id, @PathVariable String reason) {
+		orderService.delete(id);
+	}
 }
