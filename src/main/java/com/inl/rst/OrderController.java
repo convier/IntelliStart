@@ -57,13 +57,13 @@ public class OrderController {
 	}
 
 	@Operation(summary = "Delete an order by id")
-	@DeleteMapping(value = "/orders/{id}", params = "version=1")
+	@DeleteMapping(value = "/v1/orders/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		orderService.delete(id);
 	}
 
 	@Operation(summary = "Delete an order by id with a reason")
-	@DeleteMapping(value = "/orders/{id}", params = "version=2")
+	@DeleteMapping(value = "/v2/orders/{id}")
 	public void delete(@PathVariable Long id, @PathVariable String reason) {
 		orderService.delete(id);
 	}
