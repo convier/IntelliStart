@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.inl.rst.model.Order;
-import com.inl.rst.service.OrderService;
+import com.inl.rst.service.OrderDTO;
+import com.inl.rst.service.common.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -34,25 +34,25 @@ public class OrderController {
 	@Operation(summary = "Get all orders")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Found orders", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = Order.class)) }),
+					@Content(mediaType = "application/json", schema = @Schema(implementation = OrderDTO.class)) }),
 			@ApiResponse(responseCode = "404", description = "Orders not found", content = @Content) })
 	@GetMapping("/orders")
-	public List<Order> all() {
+	public List<OrderDTO> all() {
 		return orderService.all();
 	}
 
 	// the global filter overrides the ETag value we set here. We can still
 	@Operation(summary = "Find order by id")
 	@GetMapping(value = "/orders/{id}")
-	public ResponseEntity<Order> findWithCustomEtag(@PathVariable("id") final Long id) {
-		Order order = orderService.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	public ResponseEntity<OrderDTO> findWithCustomEtag(@PathVariable("id") final Long id) {
+		OrderDTO order = orderService.find(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS)).body(order);
 	}
 
 	@Operation(summary = "Add the new order")
 	@PostMapping(value = "/orders")
 	@ResponseBody
-	public Order add(@RequestBody Order order) {
+	public OrderDTO add(@RequestBody OrderDTO order) {
 		return orderService.add(order);
 	}
 

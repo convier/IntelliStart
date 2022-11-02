@@ -1,11 +1,11 @@
-package com.inl.rst.model;
+package com.inl.rst.service;
 
 import java.util.Objects;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public final class Order {
+public final class OrderDTO {
 	
 	private final long id;
 	
@@ -19,11 +19,11 @@ public final class Order {
     @Size(min = 0, max = 256)
 	private final String description;
 	
-	public Order() {
+	public OrderDTO() {
 		this(0, null, null, 0);
 	}
 
-	public Order(long id, String name, String description, long version) {
+	public OrderDTO(long id, String name, String description, long version) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -60,7 +60,7 @@ public final class Order {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Order other = (Order) obj;
+		OrderDTO other = (OrderDTO) obj;
 		return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
 				&& version == other.version;
 	}

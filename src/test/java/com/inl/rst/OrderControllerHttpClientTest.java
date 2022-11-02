@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inl.rst.model.Order;
+import com.inl.rst.service.OrderDTO;
 
 public class OrderControllerHttpClientTest {
 
@@ -30,7 +30,7 @@ public class OrderControllerHttpClientTest {
 		HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
 
 		// Then
-		List<Order> resource = retrieveResourceFromResponse(httpResponse, List.class);
+		List<OrderDTO> resource = retrieveResourceFromResponse(httpResponse, List.class);
 		assertFalse(resource.isEmpty());
 	}
 

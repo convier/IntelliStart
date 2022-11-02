@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.inl.rst.model.Order;
+import com.inl.rst.service.OrderDTO;
 
 public class OrderControllerETagTest {
 
@@ -20,7 +20,7 @@ public class OrderControllerETagTest {
 	public void shouldBe304AsResponseCode() {
 		RestTemplate restTemplate = new RestTemplate();
 
-		ResponseEntity<Order> response = restTemplate.getForEntity(HOST, Order.class); // headForHeaders(HOST+"orders/1");
+		ResponseEntity<OrderDTO> response = restTemplate.getForEntity(HOST, OrderDTO.class); // headForHeaders(HOST+"orders/1");
 
 		response.getHeaders().getETag();
 		String etagValue = response.getHeaders().getETag();
@@ -29,7 +29,7 @@ public class OrderControllerETagTest {
 		headers.add("If-None-Match", etagValue);		
 		HttpEntity<String> httpEntity = new HttpEntity<>( headers);
 	    // When
-		ResponseEntity<Order> secondFindOneResponse=  restTemplate.exchange(HOST, HttpMethod.GET, httpEntity, Order.class);
+		ResponseEntity<OrderDTO> secondFindOneResponse=  restTemplate.exchange(HOST, HttpMethod.GET, httpEntity, OrderDTO.class);
 
 	    // Then
 	    assertTrue(secondFindOneResponse.getStatusCode()  == HttpStatus.NOT_MODIFIED);

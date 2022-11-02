@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.inl.rst.model.Order;
+import com.inl.rst.service.OrderDTO;
 
 public class OrderControllerRestTemplateTest {
 
@@ -16,9 +16,9 @@ public class OrderControllerRestTemplateTest {
 	public void shouldCreateNewOrder() {
 		RestTemplate restTemplate = new RestTemplate();
 
-		HttpEntity<Order> request = new HttpEntity<>(new Order(3, "test", "fromTest", 1));
+		HttpEntity<OrderDTO> request = new HttpEntity<>(new OrderDTO(3, "test", "fromTest", 1));
 
-		Order order = restTemplate.postForObject(HOST + "orders", request, Order.class);
+		OrderDTO order = restTemplate.postForObject(HOST + "orders", request, OrderDTO.class);
 		assertNotNull(order);
 	}
 	
