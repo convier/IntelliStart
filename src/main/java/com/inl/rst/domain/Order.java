@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
+import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -89,5 +92,22 @@ public class Order {
 		Order other = (Order) obj;
 		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(items, other.items) && Objects.equals(name, other.name);
+	}
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", name=" + name + ", description=" + description + ", items=" + items + "]";
+	}
+
+	@PrePersist
+	public void postPeristEvent() {
+		System.out.println("Being persisted order, id: " + this.toString());
+	}
+	
+	@PreRemove
+	public void preRemoveEvent() {
+		System.out.println("Being removed order, id: " + getId());
 	}
 }
