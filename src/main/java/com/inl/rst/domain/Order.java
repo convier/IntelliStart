@@ -8,31 +8,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Ordering") // order is a keyword
+@Table(name = "Ordering") // order is a keyword
+@NamedQuery(name = "Order.findById", query = "SELECT o FROM Order o WHERE o.id=:orderId")
 public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="name", length=64) 
+
+	@Column(name = "name", length = 64)
 	@NotNull
 	private String name;
 
-	@Column(name="description", length=128) 
+	@Column(name = "description", length = 128)
 	private String description;
-	
-	@OneToMany(mappedBy="order")
+
+	@OneToMany(mappedBy = "order")
 	private Set<Item> items;
-	
+
 	public Order() {
 		this(null, null, null);
 	}
@@ -93,9 +94,7 @@ public class Order {
 		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
 				&& Objects.equals(items, other.items) && Objects.equals(name, other.name);
 	}
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", name=" + name + ", description=" + description + ", items=" + items + "]";
@@ -105,7 +104,7 @@ public class Order {
 	public void postPeristEvent() {
 		System.out.println("Being persisted order, id: " + this.toString());
 	}
-	
+
 	@PreRemove
 	public void preRemoveEvent() {
 		System.out.println("Being removed order, id: " + getId());
