@@ -25,7 +25,7 @@ public class OrderControllerRestTemplateTest {
 	@Test
 	public void shouldBeResponseResourseNotExist() {
 		RestTemplate restTemplate = new RestTemplate();
-		String entityUrl = HOST + "v1/orders/10";//?version=1";
+		String entityUrl = HOST + "v1/orders/1";
 		restTemplate.delete(entityUrl);		
 	}
 }

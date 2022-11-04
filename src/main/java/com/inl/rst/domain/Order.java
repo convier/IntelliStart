@@ -12,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,14 +22,16 @@ import javax.validation.constraints.NotNull;
 public class Order {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+	@SequenceGenerator(name = "order_seq", sequenceName = "order_sequence", allocationSize = 1, initialValue = 6)
 	private Long id;
 
-	@Column(name = "name", length = 64)
+	@Column(name = "name", length = 64, nullable = false)
 	@NotNull
 	private String name;
 
 	@Column(name = "description", length = 128)
+	@NotNull
 	private String description;
 
 	@OneToMany(mappedBy = "order")

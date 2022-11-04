@@ -7,17 +7,17 @@ import javax.validation.constraints.Size;
 
 public final class OrderDTO {
 	
-	private final long id;
+	private long id;
 	
-	private final long version;
+	private long version;
 	
 	@NotBlank
     @Size(min = 0, max = 64)
-	private final String name;
+	private String name;
 	
 	@NotBlank
     @Size(min = 0, max = 256)
-	private final String description;
+	private String description;
 	
 	public OrderDTO() {
 		this(0, null, null, 0);
@@ -35,16 +35,32 @@ public final class OrderDTO {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public long getVersion() {
-		return version;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
