@@ -19,13 +19,4 @@ public class OrderRepositoryTest {
 		Order order = orderRepository.saveAndFlush(new Order(null, "order 1", "test order"));
 		assertNotNull(order.getId());
 	}
-	
-	@Test
-	public void shouldSaveWithOwningSide() {
-		Order order1 = new Order();
-		Order order2 = new Order();
-		
-		
-		
-	}
 }
